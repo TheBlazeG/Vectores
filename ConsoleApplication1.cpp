@@ -13,7 +13,7 @@ int main()
       //  vector <string> inventory(10);
         //vector <string> inventory(10, "-");
           //  vector<string> inventory(myStuff);
-
+    string objeto;
             vector<string> inventory;
 
             inventory.push_back("Espada");
@@ -45,12 +45,23 @@ int main()
             }
             cout << "Un enemigo ha robado todas tus armas" << endl;
             inventory.clear();
+
+            for (unsigned int i = 0; i < 5; i++)
+            {
+                system("cls");
+                cout << "Busca un objeto"<<endl;
+                cin >> objeto;
+                cout << "encontraste un/a " << objeto<<endl;
+                inventory.push_back(objeto);
+                system("pause");
+            }
             if (inventory.empty())
             {
                 cout << "no tienes nada"<< endl;
             }
             else
             {
+                cout << "tu inventario es"<<endl;
                 for (unsigned int i = 0; i < inventory.size(); i++)
                 {
                     cout << inventory[i] << endl;
