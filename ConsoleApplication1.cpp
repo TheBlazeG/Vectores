@@ -6,67 +6,106 @@
 #include <vector>
 
 using namespace std;
-
-int main()
-{
-    //vector<string> myStuff = {"espada", "martillo", "bomba"};
+void vector1()
+{//vector<string> myStuff = {"espada", "martillo", "bomba"};
       //  vector <string> inventory(10);
         //vector <string> inventory(10, "-");
           //  vector<string> inventory(myStuff);
     string objeto;
-            vector<string> inventory;
+    vector<string> inventory;
 
-            inventory.push_back("Espada");
-            inventory.push_back("Escudo");
-            inventory.push_back("Martillo");
+    inventory.push_back("Espada");
+    inventory.push_back("Escudo");
+    inventory.push_back("Martillo");
 
-            cout << "Tienes" << inventory.size() << "items en tu inventario" << endl;
-            for (unsigned int i = 0; i < inventory.size(); i++)
-            {
-                cout << inventory[i] << endl;
-            }
-            cout << "\nCambiaste tu" << inventory[0] << "por una bomba.";
-            inventory[0] = "bomba";
+    cout << "Tienes" << inventory.size() << "items en tu inventario" << endl;
+    for (unsigned int i = 0; i < inventory.size(); i++)
+    {
+        cout << inventory[i] << endl;
+    }
+    cout << "\nCambiaste tu" << inventory[0] << "por una bomba.";
+    inventory[0] = "bomba";
 
-            cout << "\n";
+    cout << "\n";
 
-            int i = 0;
-            do
-            {
-                cout << inventory[i] << endl;
-                i++;
-            } while (i< inventory.size());
+    int i = 0;
+    do
+    {
+        cout << inventory[i] << endl;
+        i++;
+    } while (i < inventory.size());
 
-            //Delete item from vector
-            inventory.pop_back();
-            for (unsigned int i = 0; i < inventory.size() ; i++)
-            {
-                cout << inventory[i]<< endl;
-            }
-            cout << "Un enemigo ha robado todas tus armas" << endl;
-            inventory.clear();
+    //Delete item from vector
+    inventory.pop_back();
+    for (unsigned int i = 0; i < inventory.size(); i++)
+    {
+        cout << inventory[i] << endl;
+    }
+    cout << "Un enemigo ha robado todas tus armas" << endl;
+    inventory.clear();
 
-            for (unsigned int i = 0; i < 5; i++)
-            {
-                system("cls");
-                cout << "Busca un objeto"<<endl;
-                cin >> objeto;
-                cout << "encontraste un/a " << objeto<<endl;
-                inventory.push_back(objeto);
-                system("pause");
-            }
-            if (inventory.empty())
-            {
-                cout << "no tienes nada"<< endl;
-            }
-            else
-            {
-                cout << "tu inventario es"<<endl;
-                for (unsigned int i = 0; i < inventory.size(); i++)
-                {
-                    cout << inventory[i] << endl;
-                }
-            }
+    for (unsigned int i = 0; i < 5; i++)
+    {
+        system("cls");
+        cout << "Busca un objeto" << endl;
+        cin >> objeto;
+        cout << "encontraste un/a " << objeto << endl;
+        inventory.push_back(objeto);
+        system("pause");
+    }
+    if (inventory.empty())
+    {
+        cout << "no tienes nada" << endl;
+    }
+    else
+    {
+        cout << "tu inventario es" << endl;
+        for (unsigned int i = 0; i < inventory.size(); i++)
+        {
+            cout << inventory[i] << endl;
+        }
+    }
+}
+void vectorReserve()
+{
+    vector <int> scores(10, 0);
+    cout << "Size is: " << scores.size() << endl;
+    cout << "Vector capacity is: " << scores.capacity() << endl;
+
+    scores.push_back(0);
+    cout << "Size is: " << scores.size() << endl;
+    cout << "Vector capacity is: " << scores.capacity() << endl;
+
+    scores.push_back(3);
+    scores.push_back(3);
+    scores.push_back(3);
+    scores.push_back(3);
+    scores.push_back(3);
+    cout << "Size is: " << scores.size() << endl;
+    cout << "Vector capacity is: " << scores.capacity() << endl;
+
+    scores.reserve(40);
+    cout << "Size is: " << scores.size() << endl;
+    cout << "Vector capacity is: " << scores.capacity() << endl;
+}
+int main()
+{
+    const int NUM_SCORES = 4;
+    int score;
+    vector<int>::const_iterator iter;
+    vector<int> scores;
+
+    for (int i = 0; i < NUM_SCORES; i++)
+    {
+        cout << "Score " << i + 1 << endl;
+        cin >> score;
+        scores.push_back(score);
+    }
+
+    for (  iter = scores.begin(); iter!=scores.end(); iter++)
+    {
+        cout << *iter;
+    }
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
