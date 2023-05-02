@@ -36,6 +36,26 @@ int main()
                 cout << inventory[i] << endl;
                 i++;
             } while (i< inventory.size());
+
+            //Delete item from vector
+            inventory.pop_back();
+            for (unsigned int i = 0; i < inventory.size() ; i++)
+            {
+                cout << inventory[i]<< endl;
+            }
+            cout << "Un enemigo ha robado todas tus armas" << endl;
+            inventory.clear();
+            if (inventory.empty())
+            {
+                cout << "no tienes nada"<< endl;
+            }
+            else
+            {
+                for (unsigned int i = 0; i < inventory.size(); i++)
+                {
+                    cout << inventory[i] << endl;
+                }
+            }
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
