@@ -104,7 +104,7 @@ int main()
 
     for (  iter = scores.begin(); iter!=scores.end(); iter++)
     {
-        cout << *iter;
+        cout << *iter<< endl;
     }
 }
 
