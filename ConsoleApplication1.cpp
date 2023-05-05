@@ -4,6 +4,7 @@
 #include <iostream>
 #include<string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 void vector1()
@@ -102,10 +103,114 @@ void scoresrandom()
         scores.push_back(score);
     }
     cout << "Puntajes " << endl;
-    for (  iter = scores.begin(); iter!=scores.end(); iter++)
+    for (iter = scores.begin(); iter != scores.end(); iter++)
     {
-        cout << *iter<< endl;
+        cout << *iter << endl;
     }
+
+    cout << "Buscar Puntajes" << endl;
+    cin >> score;
+    iter = find(scores.begin(), scores.end(), score);
+    if (iter != scores.end())
+    {
+        cout << "Tu puntaje se encuentra en el vector\n";
+    }
+    else
+    {
+        cout << "No encontramos el puntaje que buscas\n";
+    }
+
+    srand(time(NULL));
+    random_shuffle(scores.begin(), scores.end());
+    cout << "\nScores mezclados\n";
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    cout << "\nCambiar orden\n";
+    sort(scores.begin(), scores.end());
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    string word = "espejo";
+    random_shuffle(word.begin(), word.end());
+    cout << word;
+}
+int main()
+{
+    int lives;
+    int menu;
+    bool Stop = true;
+    bool Exit = true;
+    bool Guess = false;
+    vector<int>::const_iterator iterate;
+    vector<string> palabras = { "sandwich","mango","madera","alcancia","multimetro"};
+    string respuesta;
+    do
+    {
+        do
+        {
+            system("cls");
+            cout << "Bienvenido a SHUFFLE!\n" << "Jugar=1 Salir=2\n";
+            cin >> menu;
+        } while (menu < 1 || menu>2);
+
+        switch (menu)
+        {
+        case 1:
+            do
+            {
+                system("cls");
+                lives = 3;
+                Guess = true;
+                srand(time(NULL));
+                int vectorutilizado = rand() % 5;
+                string palabra = palabras[vectorutilizado];
+                cout << palabra << endl;
+                random_shuffle(palabra.begin(), palabra.end());
+                do
+                {
+                    system("cls");
+                    cout << palabra << endl<<"Tienes "<<lives<<" Vidas\n";
+                    cin >> respuesta;
+                    if (respuesta == palabras[vectorutilizado])
+                    {
+                        cout << "\nRespuesta correcta, Ganaste!\n";
+                        Guess = false;
+                    }
+                    else
+                    {
+                        cout << "\nRespuesta incorrecta, -1 vida\n";
+                        lives = lives--;
+                    }
+                } while (lives!=0 && Guess==true );
+                if (lives==0)
+                {
+                    cout << "Perdiste!\n";
+                }
+                
+                cout << "Quieres seguir jugando? 1=Si 2=No\n";
+                cin >> menu;
+                if (menu == 2)
+                {
+                    Stop = false;
+                }
+            } while (Stop);
+            break;
+        case 2:
+            Exit = false;
+            break;
+        default:
+            break;
+        } 
+        
+    } while (Exit);
+    
+
+    
+    
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
