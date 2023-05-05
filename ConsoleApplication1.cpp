@@ -88,7 +88,7 @@ void vectorReserve()
     cout << "Size is: " << scores.size() << endl;
     cout << "Vector capacity is: " << scores.capacity() << endl;
 }
-int main()
+void scoresrandom()
 {
     const int NUM_SCORES = 4;
     int score;
@@ -101,7 +101,7 @@ int main()
         cin >> score;
         scores.push_back(score);
     }
-
+    cout << "Puntajes " << endl;
     for (  iter = scores.begin(); iter!=scores.end(); iter++)
     {
         cout << *iter<< endl;
