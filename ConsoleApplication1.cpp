@@ -4,8 +4,15 @@
 #include <iostream>
 #include<string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
+void vector1();
+void vectorReserve();
+void scoresrandom();
+void iterators();
+void iterInventory();
+
 void vector1()
 {//vector<string> myStuff = {"espada", "martillo", "bomba"};
       //  vector <string> inventory(10);
@@ -88,7 +95,7 @@ void vectorReserve()
     cout << "Size is: " << scores.size() << endl;
     cout << "Vector capacity is: " << scores.capacity() << endl;
 }
-int main()
+void scoresrandom()
 {
     const int NUM_SCORES = 4;
     int score;
@@ -101,11 +108,168 @@ int main()
         cin >> score;
         scores.push_back(score);
     }
-
-    for (  iter = scores.begin(); iter!=scores.end(); iter++)
+    cout << "Puntajes " << endl;
+    for (iter = scores.begin(); iter != scores.end(); iter++)
     {
-        cout << *iter<< endl;
+        cout << *iter << endl;
     }
+
+    cout << "Buscar Puntajes" << endl;
+    cin >> score;
+    iter = find(scores.begin(), scores.end(), score);
+    if (iter != scores.end())
+    {
+        cout << "Tu puntaje se encuentra en el vector\n";
+    }
+    else
+    {
+        cout << "No encontramos el puntaje que buscas\n";
+    }
+
+    srand(time(NULL));
+    random_shuffle(scores.begin(), scores.end());
+    cout << "\nScores mezclados\n";
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    cout << "\nCambiar orden\n";
+    sort(scores.begin(), scores.end());
+    for (iter = scores.begin(); iter != scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    string word = "espejo";
+    random_shuffle(word.begin(), word.end());
+    cout << word;
+}
+void iterators()
+{
+    int lives;
+    int menu;
+    bool Stop = true;
+    bool Exit = true;
+    bool Guess = false;
+    vector<int>::const_iterator iterate;
+    vector<string> palabras = { "sandwich","mango","madera","alcancia","multimetro" };
+    string respuesta;
+    do
+    {
+        do
+        {
+            system("cls");
+            cout << "Bienvenido a SHUFFLE!\n" << "Jugar=1 Salir=2\n";
+            cin >> menu;
+        } while (menu < 1 || menu>2);
+
+        switch (menu)
+        {
+        case 1:
+            do
+            {
+                system("cls");
+                lives = 3;
+                Guess = true;
+                srand(time(NULL));
+                int vectorutilizado = rand() % 5;
+                string palabra = palabras[vectorutilizado];
+                cout << palabra << endl;
+                random_shuffle(palabra.begin(), palabra.end());
+                do
+                {
+                    system("cls");
+                    cout << palabra << endl << "Tienes " << lives << " Vidas\n";
+                    cin >> respuesta;
+                    if (respuesta == palabras[vectorutilizado])
+                    {
+                        cout << "\nRespuesta correcta, Ganaste!\n";
+                        Guess = false;
+                    }
+                    else
+                    {
+                        cout << "\nRespuesta incorrecta, -1 vida\n";
+                        lives = lives--;
+                    }
+                } while (lives != 0 && Guess == true);
+                if (lives == 0)
+                {
+                    cout << "Perdiste!\n";
+                }
+
+                cout << "Quieres seguir jugando? 1=Si 2=No\n";
+                cin >> menu;
+                if (menu == 2)
+                {
+                    Stop = false;
+                }
+            } while (Stop);
+            break;
+        case 2:
+            Exit = false;
+            break;
+        default:
+            break;
+        }
+
+    } while (Exit);
+
+
+
+}
+void iterInventory()
+{
+    vector<string> inventory;
+    inventory.push_back("Espada");
+    inventory.push_back("Escudo");
+    inventory.push_back("Martillo");
+    inventory.push_back("Rifle");
+
+    vector<string>::iterator MyIterator;
+    vector<string>::const_iterator iter;
+
+    cout << "\nTus items:\n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    //Intercambiar
+    cout << "intercambiaste tu " << inventory[2] << " por un arco";
+    MyIterator = inventory.begin() + 2;
+    *MyIterator = "Arco";
+    cout << "\nTus items: \n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    //Size
+    cout << "\nEl nombre del item " << *MyIterator << " tiene" << (*MyIterator).size() << " letras.\n";
+    cout << "\nEl nombre del item " << *MyIterator << " tiene" << (MyIterator)->size() << " letras.\n";
+
+    //insert
+    cout << "\n\n Recuperaste la bomba robada! ";
+    inventory.insert(inventory.begin() + 2, "Bomba");
+    cout << "\nTus items: \n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+
+    //Delete
+    cout << "\n tu " << inventory[1] << " se destruyo en combate";
+    inventory.erase(inventory.begin() + 1);
+
+    cout << "\nTus items: \n";
+    for (iter = inventory.begin(); iter != inventory.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+}
+int main()
+{
+    const int MAX_ATTEMPTS = 3;
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
