@@ -270,6 +270,47 @@ void iterInventory()
 int main()
 {
     const int MAX_ATTEMPTS = 3;
+    int attempts = 0;
+
+    vector<string> words;
+    words.push_back("Computadora");
+    words.push_back("Juego");
+    words.push_back("Codigo");
+    words.push_back("Refrigerador");
+
+    srand(time(NULL));
+    int randomnumber = rand();
+    int wordsRandomIndex = (randomnumber % words.size());
+    string Wordselected = words[wordsRandomIndex];
+    //cout << Wordselected << endl;
+
+    random_shuffle(Wordselected.begin(), Wordselected.end());
+    cout << Wordselected << endl;
+    string correctWord;
+    do
+    {
+        cin>> correctWord;
+        transform(correctWord.begin(), correctWord.end(),correctWord.begin(),::toupper);
+        if (correctWord==words[wordsRandomIndex])
+        {
+            cout << "\nAdivinaste la palabra!!!\n";
+            break;
+        }
+        else
+        {
+            attempts++;
+            cout << "\nFallaste Humano inepto:\n"<< "te quedan "<<3-attempts<< " intentos";
+        }
+    } while (attempts!=MAX_ATTEMPTS);
+    if (attempts==MAX_ATTEMPTS)
+    {
+        cout << "\n Perdiste, date de baja, la palabra era: \n" << words[wordsRandomIndex];
+    }
+    else
+    {
+        cout << "\nMuy Bien!! Lo hiciste en el intento " << attempts;
+    }
+    cout << "\nFin del Juego";
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
