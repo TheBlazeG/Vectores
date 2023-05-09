@@ -10,7 +10,7 @@ using namespace std;
 void vector1();
 void vectorReserve();
 void scoresrandom();
-void iterators();
+void Shuffleoriginal();
 void iterInventory();
 
 void vector1()
@@ -144,7 +144,7 @@ void scoresrandom()
     random_shuffle(word.begin(), word.end());
     cout << word;
 }
-void iterators()
+void Shuffleoriginal()
 {
     int lives;
     int menu;
