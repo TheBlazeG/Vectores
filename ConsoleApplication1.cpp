@@ -12,7 +12,24 @@ void vectorReserve();
 void scoresrandom();
 void Shuffleoriginal();
 void iterInventory();
+void Shuffle();
+void Swap(vector<int>& uno);
+void myswap();
+void display(const vector<string>& vec);
 
+int main()
+{
+    vector<string> inventory = { "sword","armor","gun" };
+    display(inventory);
+}
+void display(const vector<string> &vec)
+{
+    vector<string>::const_iterator iter;
+    for (iter=vec.begin(); iter!=vec.end(); iter++)
+    {
+        cout << *iter<<endl;
+    }
+}
 void vector1()
 {//vector<string> myStuff = {"espada", "martillo", "bomba"};
       //  vector <string> inventory(10);
@@ -267,7 +284,7 @@ void iterInventory()
         cout << *iter << endl;
     }
 }
-int main()
+void Shuffle()
 {
     const int MAX_ATTEMPTS = 3;
     int attempts = 0;
@@ -289,9 +306,9 @@ int main()
     string correctWord;
     do
     {
-        cin>> correctWord;
-        transform(correctWord.begin(), correctWord.end(),correctWord.begin(),::toupper);
-        if (correctWord==words[wordsRandomIndex])
+        cin >> correctWord;
+        transform(correctWord.begin(), correctWord.end(), correctWord.begin(), ::toupper);
+        if (correctWord == words[wordsRandomIndex])
         {
             cout << "\nAdivinaste la palabra!!!\n";
             break;
@@ -299,10 +316,10 @@ int main()
         else
         {
             attempts++;
-            cout << "\nFallaste Humano inepto:\n"<< "te quedan "<<3-attempts<< " intentos";
+            cout << "\nFallaste Humano inepto:\n" << "te quedan " << 3 - attempts << " intentos";
         }
-    } while (attempts!=MAX_ATTEMPTS);
-    if (attempts==MAX_ATTEMPTS)
+    } while (attempts != MAX_ATTEMPTS);
+    if (attempts == MAX_ATTEMPTS)
     {
         cout << "\n Perdiste, date de baja, la palabra era: \n" << words[wordsRandomIndex];
     }
@@ -311,6 +328,26 @@ int main()
         cout << "\nMuy Bien!! Lo hiciste en el intento " << attempts;
     }
     cout << "\nFin del Juego";
+}
+void Swap(vector<int>& uno)
+{
+    int change = uno[0];
+    uno[0] = uno[1];
+    uno[1] = change;
+}
+void myswap()
+{
+    vector<int> Scores = { 1337,2023 };
+    vector<int>::const_iterator iter;
+    for (iter = Scores.begin(); iter != Scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
+    void Swap(vector<string> Scores);
+    for (iter = Scores.begin(); iter != Scores.end(); iter++)
+    {
+        cout << *iter << endl;
+    }
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
