@@ -16,19 +16,76 @@ void Shuffle();
 void Swap(vector<int>& uno);
 void myswap();
 void display(const vector<string>& vec);
-
+void iterinventory();
+bool AskYesNo(string question);
 int main()
 {
-    vector<string> inventory = { "sword","armor","gun" };
+    const int MAX_ITEMS = 6;
+    const int SPACE_COST = 6;
+    const int FREE_ITEMS = 3;
+    unsigned int gems = 8;
+
+    bool isContinue;
+    //items
+    vector<string> items = { "sword","shield","potion","bow" };
+     //inventory
+    vector<string> inventory;
+    inventory.reserve(MAX_ITEMS);
+    vector<string>::const_iterator iter;
+    do
+    {
+cout << "\n---INVENTARIO---\n";
+    cout << "Gemas: " << gems<<endl;
+
+    string itemfound = GetRandomItem(items);
+
+    cout << "Has encontrado un(a) " << itemfound << "!\n";
+    inventory.push_back(itemfound);
+    //displayItems
     display(inventory);
+    isContinue = AskYesNo("¿Quieres seguir explorando?");
+    } while (isContinue);
+    
+}
+
+string GetRandomItem(vector<string>&items)
+{
+    srand(time(NULL));
+    int itemRandomIndex = (rand() % items.size());
+    string itemSelected = items[itemRandomIndex];
+
+    return itemSelected;
 }
 void display(const vector<string> &vec)
 {
     vector<string>::const_iterator iter;
+    int i = 0;
+    cout << "\n---Tus items--\n ";
     for (iter=vec.begin(); iter!=vec.end(); iter++)
     {
-        cout << *iter<<endl;
+        
+        cout <<i<<".-"<< * iter << endl;
+        i++;
     }
+}
+bool AskYesNo(string question)
+{
+    char answer;
+    do
+    {
+        cout << "\n"<<question<<"(y/n)"<<endl;
+        cin >> answer;
+
+        if (answer=='y')
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    } while (answer !='y' && answer != 'n');
+    cout << "\n Vuelve Pronto!";
 }
 void vector1()
 {//vector<string> myStuff = {"espada", "martillo", "bomba"};
@@ -348,6 +405,11 @@ void myswap()
     {
         cout << *iter << endl;
     }
+}
+void iterinventory()
+{
+    vector<string> inventory = { "sword","armor","gun" };
+    display(inventory);
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
