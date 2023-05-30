@@ -5,6 +5,11 @@
 #include<string>
 #include <vector>
 #include <algorithm>
+#include <cstdlib>
+#include <locale>
+const int MAX_ITEMS = 6;
+const int SPACE_COST = 6;
+const int FREE_ITEMS = 3;
 
 using namespace std;
 void vector1();
@@ -18,11 +23,12 @@ void myswap();
 void display(const vector<string>& vec);
 void iterinventory();
 bool AskYesNo(string question);
+void ShowMenu();
+int askNumber(string question, int a, int b);
+
 int main()
 {
-    const int MAX_ITEMS = 6;
-    const int SPACE_COST = 6;
-    const int FREE_ITEMS = 3;
+    std::setlocale(LC_ALL,"es_ES.UTF-8");
     unsigned int gems = 8;
 
     bool isContinue;
@@ -40,7 +46,27 @@ cout << "\n---INVENTARIO---\n";
     string itemfound = GetRandomItem(items);
 
     cout << "Has encontrado un(a) " << itemfound << "!\n";
-    inventory.push_back(itemfound);
+    if (inventory.size()>=FREE_ITEMS)
+    {
+        ShowMenu();
+        int option = askNumber("\n Elige un numero entre: ",0, 3);
+        switch (option)
+        {
+        case 1:
+            //ReplaceItem
+            break;
+        case 3:
+            //BuySpace
+            break;
+        default:
+            break;
+        }
+    }
+    else
+    {
+inventory.push_back(itemfound);
+    }
+    
     //displayItems
     display(inventory);
     isContinue = AskYesNo("¿Quieres seguir explorando?");
@@ -86,6 +112,24 @@ bool AskYesNo(string question)
         }
     } while (answer !='y' && answer != 'n');
     cout << "\n Vuelve Pronto!";
+}
+void ShowMenu()
+{
+    cout << "\nYa no tienes Espacio para más objetos \n";
+    cout << "\n1.-Reemplazar Objeto";
+    cout << "\n2.-Continuar sin el objeto";
+    cout << "\n3.-Añadir un espacio por " << SPACE_COST << "Gemas"<< endl;
+
+}
+int askNumber(string question, int a, int b)
+{
+    int number = 0;
+    do
+    {
+        cout << question << "entre " << a << " y " << b << endl;
+        cin >> number;
+    } while (number > a || number < b);
+    return number;
 }
 void vector1()
 {//vector<string> myStuff = {"espada", "martillo", "bomba"};
