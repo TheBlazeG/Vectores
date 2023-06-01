@@ -25,12 +25,16 @@ void iterinventory();
 bool AskYesNo(string question);
 void ShowMenu();
 int askNumber(string question, int a, int b);
+void itemreplace(vector<string>& InventoryVector, string objectinput, int spaceinput);
+void SpaceBuy(vector<string>& InventoryVector, int& Resource, int addition);
 
 int main()
 {
     std::setlocale(LC_ALL,"es_ES.UTF-8");
-    unsigned int gems = 8;
+     int gems = 8;
 
+    int space;
+    int boughtspaces=0;
     bool isContinue;
     //items
     vector<string> items = { "sword","shield","potion","bow" };
@@ -46,17 +50,21 @@ cout << "\n---INVENTARIO---\n";
     string itemfound = GetRandomItem(items);
 
     cout << "Has encontrado un(a) " << itemfound << "!\n";
-    if (inventory.size()>=FREE_ITEMS)
+    if (inventory.size()>=FREE_ITEMS+boughtspaces)
     {
         ShowMenu();
         int option = askNumber("\n Elige un numero entre: ",0, 3);
         switch (option)
         {
         case 1:
-            //ReplaceItem
+            do
+            {   
+            itemreplace(inventory, itemfound, space);
+            } while (isdigit(space));
+            
             break;
         case 3:
-            //BuySpace
+            SpaceBuy(inventory, gems, boughtspaces);
             break;
         default:
             break;
@@ -544,6 +552,38 @@ void originaltictactoe()
         }
         cout << endl;
     }
+}
+void itemreplace(vector<string>& InventoryVector, string objectinput, int spaceinput)
+{
+    cout << "\nQue Objeto quieres Reemplazar?(por número)"<<endl;
+    cin >> spaceinput;
+    InventoryVector[spaceinput] = objectinput;
+}
+void SpaceBuy(vector<string>& InventoryVector, int &Resource, int addition)
+{
+    cout << "Quieres comprar un espacio para tu objeto por 2 gemas?";
+        int choice;
+        cin >> choice;
+        switch (choice)
+        {
+        case    1:
+            if (Resource>=3)
+            {
+                Resource = Resource - 3;
+                addition++;
+            }
+            else
+            {
+                cout << "No tienes gemas";
+            }
+            break;
+        case    2:
+            cout << "Dejas de explorar";
+            break;
+        default:
+            break;
+        }
+
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
