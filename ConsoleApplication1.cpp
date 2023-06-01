@@ -16,6 +16,8 @@ void Shuffle();
 void Swap(vector<int>& uno);
 void myswap();
 void display(const vector<string>& vec);
+void Matrix();
+void originaltictactoe();
 
 int main()
 {
@@ -347,6 +349,96 @@ void myswap()
     for (iter = Scores.begin(); iter != Scores.end(); iter++)
     {
         cout << *iter << endl;
+    }
+}
+void Matrix()
+{
+    const int HEIGHTWIDTH = 6;
+    for (int i = 0; i < HEIGHTWIDTH; i++)
+    {
+        cout << endl;
+        for (int j = 0; j < HEIGHTWIDTH; j++)
+        {
+            if (i == 0 || i == HEIGHTWIDTH - 1 || j == 0 || j == HEIGHTWIDTH - 1)
+            {
+                cout << "1";
+            }
+            else
+            {
+                cout << "0";
+            }
+
+        }
+    }
+    cout << endl;
+    //diagonal
+    for (int i = 0; i < HEIGHTWIDTH; i++)
+    {
+        cout << endl;
+        for (int j = 0; j < HEIGHTWIDTH; j++)
+        {
+            if (i == 0 || i == HEIGHTWIDTH - 1 || j == 0 || j == HEIGHTWIDTH - 1 || i == j)
+            {
+                cout << "1";
+            }
+            else
+            {
+                cout << "0";
+            }
+
+        }
+    }
+
+    cout << endl;
+    //inverse diagonal
+
+    for (int i = 0; i < HEIGHTWIDTH; i++)
+    {
+        cout << endl;
+        for (int j = 0; j < HEIGHTWIDTH; j++)
+        {
+            int sumij = i + j;
+            if (i == 0 || i == HEIGHTWIDTH - 1 || j == 0 || j == HEIGHTWIDTH - 1 || i == j || sumij == HEIGHTWIDTH - 1)
+            {
+                cout << "1";
+            }
+            else
+            {
+                cout << "0";
+            }
+
+        }
+    }
+}
+void originaltictactoe()
+{
+    const int ROWS = 3;
+    const int COLUMNS = 3;
+
+    char board[ROWS][COLUMNS] =
+    { {'0','x','0'},
+      {' ','x','x'} ,
+      {'x','0','0'} };
+    cout << "<<<Tic-Tac-Toe>>>\n";
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLUMNS; j++)
+        {
+            cout << board[i][j];
+        }
+        cout << endl;
+    }
+    cout << endl;
+    board[1][0] = 'x';
+
+    for (int i = 0; i < ROWS; i++)
+    {
+        for (int j = 0; j < COLUMNS; j++)
+        {
+            cout << board[i][j];
+        }
+        cout << endl;
     }
 }
 
