@@ -25,16 +25,16 @@ void iterinventory();
 bool AskYesNo(string question);
 void ShowMenu();
 int askNumber(string question, int a, int b);
-void itemreplace(vector<string>& InventoryVector, string objectinput, int spaceinput);
-void SpaceBuy(vector<string>& InventoryVector, int& Resource, int addition);
+void itemreplace(vector<string>& InventoryVector, string objectinput);
+void SpaceBuy(vector<string>& InventoryVector, unsigned int& Resource, string founditem);
 
 int main()
 {
     std::setlocale(LC_ALL,"es_ES.UTF-8");
-     int gems = 8;
+    unsigned int gems = 8;
 
     int space;
-    int boughtspaces=0;
+   
     bool isContinue;
     //items
     vector<string> items = { "sword","shield","potion","bow" };
@@ -50,21 +50,22 @@ cout << "\n---INVENTARIO---\n";
     string itemfound = GetRandomItem(items);
 
     cout << "Has encontrado un(a) " << itemfound << "!\n";
-    if (inventory.size()>=FREE_ITEMS+boughtspaces)
+    if (inventory.size()>=FREE_ITEMS)
     {
         ShowMenu();
         int option = askNumber("\n Elige un numero entre: ",0, 3);
+
         switch (option)
         {
         case 1:
             do
             {   
-            itemreplace(inventory, itemfound, space);
+            itemreplace(inventory, itemfound);
             } while (isdigit(space));
             
             break;
         case 3:
-            SpaceBuy(inventory, gems, boughtspaces);
+            SpaceBuy(inventory, gems, itemfound);
             break;
         default:
             break;
@@ -132,12 +133,33 @@ void ShowMenu()
 int askNumber(string question, int a, int b)
 {
     int number = 0;
+    string input;
+    bool isValid;
+    do
+    {
+
+    
     do
     {
         cout << question << "entre " << a << " y " << b << endl;
-        cin >> number;
-    } while (number > a || number < b);
-    return number;
+        getline(cin, input);
+        for (char c:input)
+        {
+            if (isdigit(c))
+            {
+                isValid = false;
+                break;
+            }
+        }
+        if (!isValid)
+        {
+            cout << "\n Entrada inválida, por favor solo ingresa números." << endl;
+        }
+    } while (!isValid||input.empty());
+    //number > a || number < b ||
+    number = stoi(input);
+    } while (number > a || number < b );
+    return stoi(input);
 }
 void vector1()
 {//vector<string> myStuff = {"espada", "martillo", "bomba"};
@@ -553,36 +575,31 @@ void originaltictactoe()
         cout << endl;
     }
 }
-void itemreplace(vector<string>& InventoryVector, string objectinput, int spaceinput)
+void itemreplace(vector<string>& InventoryVector, string objectinput)
 {
-    cout << "\nQue Objeto quieres Reemplazar?(por número)"<<endl;
+    vector<string>::iterator iterate;
+    int spaceinput=0;
+    cout << "\nQue Objeto quieres Reemplazar?(por número)" << endl;
+    display(InventoryVector);
     cin >> spaceinput;
-    InventoryVector[spaceinput] = objectinput;
+    iterate = InventoryVector.begin() + spaceinput;
+    *iterate = objectinput;
+    
 }
-void SpaceBuy(vector<string>& InventoryVector, int &Resource, int addition)
+void SpaceBuy(vector<string>& InventoryVector, unsigned int &Resource,string founditem)
 {
-    cout << "Quieres comprar un espacio para tu objeto por 2 gemas?";
-        int choice;
-        cin >> choice;
-        switch (choice)
-        {
-        case    1:
-            if (Resource>=3)
+   
+            if (Resource>=SPACE_COST)
             {
-                Resource = Resource - 3;
-                addition++;
+                cout << "Espacio comprado con éxito" << endl;
+                Resource = Resource - SPACE_COST;
+                InventoryVector.push_back(founditem);
+              
             }
             else
             {
                 cout << "No tienes gemas";
             }
-            break;
-        case    2:
-            cout << "Dejas de explorar";
-            break;
-        default:
-            break;
-        }
 
 }
 
