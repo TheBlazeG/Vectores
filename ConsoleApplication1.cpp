@@ -27,60 +27,19 @@ void ShowMenu();
 int askNumber(string question, int a, int b);
 void itemreplace(vector<string>& InventoryVector, string objectinput);
 void SpaceBuy(vector<string>& InventoryVector, unsigned int& Resource, string founditem);
+void inventorypractice();
 
 int main()
 {
     std::setlocale(LC_ALL,"es_ES.UTF-8");
-    unsigned int gems = 8;
+    int score = 1000;
+    int* pscore = &score;
 
-    int space;
-   
-    bool isContinue;
-    //items
-    vector<string> items = { "sword","shield","potion","bow" };
-     //inventory
-    vector<string> inventory;
-    inventory.reserve(MAX_ITEMS);
-    vector<string>::const_iterator iter;
-    do
-    {
-cout << "\n---INVENTARIO---\n";
-    cout << "Gemas: " << gems<<endl;
+    cout << &score << endl;//dirección
+    cout << pscore << endl;
 
-    string itemfound = GetRandomItem(items);
-
-    cout << "Has encontrado un(a) " << itemfound << "!\n";
-    if (inventory.size()>=FREE_ITEMS)
-    {
-        ShowMenu();
-        int option = askNumber("\n Elige un numero entre: ",0, 3);
-
-        switch (option)
-        {
-        case 1:
-            do
-            {   
-            itemreplace(inventory, itemfound);
-            } while (isdigit(space));
-            
-            break;
-        case 3:
-            SpaceBuy(inventory, gems, itemfound);
-            break;
-        default:
-            break;
-        }
-    }
-    else
-    {
-inventory.push_back(itemfound);
-    }
-    
-    //displayItems
-    display(inventory);
-    isContinue = AskYesNo("¿Quieres seguir explorando?");
-    } while (isContinue);
-    
+    cout << score << endl;//1000
+    cout << *pscore << endl;
 }
 
 string GetRandomItem(vector<string>&items)
@@ -601,6 +560,58 @@ void SpaceBuy(vector<string>& InventoryVector, unsigned int &Resource,string fou
                 cout << "No tienes gemas";
             }
 
+}
+void inventorypractice()
+{
+    unsigned int gems = 8;
+
+    int space;
+
+    bool isContinue;
+    //items
+    vector<string> items = { "sword","shield","potion","bow" };
+    //inventory
+    vector<string> inventory;
+    inventory.reserve(MAX_ITEMS);
+    vector<string>::const_iterator iter;
+    do
+    {
+        cout << "\n---INVENTARIO---\n";
+        cout << "Gemas: " << gems << endl;
+
+        string itemfound = GetRandomItem(items);
+
+        cout << "Has encontrado un(a) " << itemfound << "!\n";
+        if (inventory.size() >= FREE_ITEMS)
+        {
+            ShowMenu();
+            int option = askNumber("\n Elige un numero entre: ", 0, 3);
+
+            switch (option)
+            {
+            case 1:
+                do
+                {
+                    itemreplace(inventory, itemfound);
+                } while (isdigit(space));
+
+                break;
+            case 3:
+                SpaceBuy(inventory, gems, itemfound);
+                break;
+            default:
+                break;
+            }
+        }
+        else
+        {
+            inventory.push_back(itemfound);
+        }
+
+        //displayItems
+        display(inventory);
+        isContinue = AskYesNo("¿Quieres seguir explorando?");
+    } while (isContinue);
 }
 
 // Ejecutar programa: Ctrl + F5 o menú Depurar > Iniciar sin depurar
